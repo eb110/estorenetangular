@@ -4,12 +4,12 @@ using Core.Interfaces;
 using Core.Specifications;
 using API.Dtos;
 using AutoMapper;
+using System.Net.Http.Headers;
+using API.Errors;
 
 namespace API.Controllers
-{
-    [ApiController]
-    [Route("api/[controller]")] //api/products
-    public class ProductsController : ControllerBase
+{ 
+    public class ProductsController : BaseApiController
     {
         private readonly IGenericRepository<ProductBrand> _productsBrandRepo;
         private readonly IGenericRepository<ProductType> _productsTypeRepo;
@@ -55,10 +55,17 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
+        //for swagger purpose => we have to inform what type of response is expected
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        //typeof informs the swagger of the type of response to expect in case of 404
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(id);
             var product = await _productsRepo.GetEntityWithSpec(spec);
+
+            if(product == null) return NotFound(new ApiResponse(404));
+
             var productDto = _mapper.Map<Product, ProductToReturnDto>(product);
             return Ok(productDto);
         }

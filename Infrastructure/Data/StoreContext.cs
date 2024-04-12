@@ -14,6 +14,7 @@ namespace Infrastructure.Data
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<ProductBrand> ProductBrands { get; set; }
 
+        //to configure columns and tables db creation => go to ProductConfiguration.cs
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
