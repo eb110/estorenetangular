@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
@@ -36,9 +35,17 @@ namespace Infrastructure.Data
             return await ApplySpecification(spec).ToListAsync();
         }
 
+        public async Task<int> CountAsync(ISpecification<T> spec)
+        {
+            return await ApplySpecification(spec).CountAsync();
+        }
+
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
+            //_storeContext.Set<T>().AsQueryable() => starting point, sends back entire collection
+            //then, based on spec, the 'cut and slash' function are performed
             return SpecificationEvaluator<T>.GetQuery(_storeContext.Set<T>().AsQueryable(), spec);
         }
+
     }
 }
