@@ -6,7 +6,9 @@ import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ServerErrorComponent } from './core/server-error/server-error.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  //breadcrumb requires a string of length > 0 to display it
+  //this is why extra parameter has been attached
+  {path: '', component: HomeComponent, data:{breadcrumb: 'home'}},
   {path: 'test-error', component: TestErrorComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},
