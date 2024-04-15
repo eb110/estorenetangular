@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
-import { FeatureShopModule } from './feature-shop/feature-shop.module';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,8 @@ import { FeatureShopModule } from './feature-shop/feature-shop.module';
     BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
-    FeatureShopModule
+    //FeatureShopModule, => lazy load => shop module has its own routing
+    HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
