@@ -32,7 +32,8 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        //as this consumes an object => apply from query
+        //from query as parameters are sent as query parameters /api/products?serach=dupa&anotherparametr=dupa2
+        //the individual parameters will automatically end up in the class properties 
         public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams productParams)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(productParams);
